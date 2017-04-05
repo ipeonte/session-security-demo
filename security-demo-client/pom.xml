@@ -1,0 +1,70 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.example.demo.security</groupId>
+		<artifactId>parent</artifactId>
+		<version>1.0.0-RELEASE</version>
+		<relativePath>../</relativePath>
+	</parent>
+
+	<artifactId>client</artifactId>
+	<name>security-demo-client</name>
+	<description>Demo Client for Common Security Layer based on Spring Session</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web-services</artifactId>
+		</dependency>
+
+	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>secure</id>
+
+			<dependencies>
+
+				<!-- Attach security layer -->
+				<dependency>
+					<groupId>com.example.rest.common.security</groupId>
+					<artifactId>common</artifactId>
+					<version>${common-security.version}</version>
+				</dependency>
+
+			</dependencies>
+
+			<build>
+
+				<plugins>
+
+					<!-- Remove Session Manager -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-jar-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>default-jar</id>
+								<phase>package</phase>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+								<configuration>
+									<excludes>
+										<exclude>com/example/demo/rest/security/client/controller/SessionManagerController.class</exclude>
+									</excludes>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+				</plugins>
+
+				<!-- Create special name for 'security' build -->
+				<finalName>${project.artifactId}-secure-${project.version}</finalName>
+			</build>
+		</profile>
+	</profiles>
+</project>
