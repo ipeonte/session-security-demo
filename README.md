@@ -1,9 +1,11 @@
 # Demo client and server to test Common Session Security layer from previous project.
 
-Prerequisites:
+## Prerequisites:
 
-Build common-session-secuirty project
-mvn clean install
+  1. Start Redis on localhost default port (6379)
+  2. Build common-session-secuirty project
+
+	mvn clean install
 
 The demo steps are next:
 
@@ -23,17 +25,19 @@ The demo steps are next:
 
 It will be no output because session is empty.
 
-  1.c Start Apache (or nodejs) server with session-mgr project included. Navigate on
+  1.c Start Apache (or http_server)  with session-mgr project included. Navigate on
 
-    http://localhost/session_mgr
+    http://localhost:8085/session_mgr
 
 Set next session parameters:
   Key: userName
-  Value: demo
+  Value: user
   
 Click submit
 
-1.d. Return on localhost:8082/client/info. It should show next output
+1.d. Return on localhost:8082/client/info. It should show next output for session key userName
+
+userName=user
 
 ## 2. Running client in real mode with security.
 
